@@ -1,15 +1,17 @@
 ### course 3 project ###
 
+# Check file exists
+if (!file.exists("UCI HAR Dataset")) stop("Please unzip data into \"UCI HAR Dataset\" folder in the current dicrectory.")
+
 # Load function libraries
 library("dplyr")
-library("Hmisc")
 
 # Load files
 test.x <- read.table("UCI HAR Dataset//test//X_test.txt", header = FALSE, dec = ".")
 train.x <- read.table("UCI HAR Dataset//train/X_train.txt", header = FALSE, dec = ".")
 
 ## Merges the training and the test sets to create one data set
-merged.x <- rbind(test, train)
+merged.x <- rbind(test.x, train.x)
 
 ## Uses descriptive activity names to name the activities in the data set
 # Load activity names
@@ -31,7 +33,7 @@ features.n <- as.character(features.l$Feat_Name)
 names(myDataset) <- c("Activity_Name", features.n)
 
 # Clean up some dirt
-rm(activity.l, features.l, features.n, merged.l, merged.m, merged.sd, merged.x, merged.y)
+rm(activity.l, features.l, features.n, merged.l, merged.x, merged.y)
 rm(test.x,test.y,train.x,train.y)
 
 # Add subjects IDs to the dataset
@@ -50,9 +52,18 @@ stdCols <- grep("std()", myDataset.cn)
 meanCols <- grep("mean()", myDataset.cn)
 selectedCols <- c(1, 2, stdCols, meanCols) # keep subject ID and activity name
 MeansAndStdDevs <- myDataset[, selectedCols]
+MeansAndStdDevs <- tbl_df(MeansAndStdDevs) # better look
 
 # Clean up some dirt
 rm(meanCols, stdCols, selectedCols, myDataset.cn, myDataset)
 
-## From the data set MeansAndStdDev, creates a second, independent tidy data set with the average 
-## of each variable for each activity and each subject
+## From the data set MeansAndStdDev, creates a second, independent tidy data set with 
+## the average of each variable for each activity and each subject
+Groups <- group_by(MeansAndStdDevs, Activity_Name, Subject_ID)
+# Calculate mean for each numeric variable
+TidyDataset <- summarise_each(Groups, funs(mean), 3:81)
+# Order by actvity and subject
+TidyDataset <- arrange(TidyDataset, Activity_Name, Subject_ID)
+
+# Show the result
+View(TidyDataset)
