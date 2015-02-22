@@ -20,3 +20,4 @@ For each observation, I selected all the average and stddev measurements, then I
 ## Details
 The **TidyDataset** is a collection of 35 observations of 81 variables, being the firts two just identification names.
 The **Activity_Name** is a factor of 6 levels, identifying different body behaviors: *LAYING, SITTING, STANDING, WALKING, WALKING_DOWNSTAIRS, WALKING_UPSTAIRS*. Instead, **Subject_ID** is a number between 1 an 30.
+All the values are normalized (no units).
