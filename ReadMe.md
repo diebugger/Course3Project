@@ -68,7 +68,7 @@ rm(activity.l, features.l, features.n, merged.l, merged.x, merged.y)
 rm(test.x,test.y,train.x,train.y)
 ``` 
 
-Let's recap for a while: I have a table colleting all measurements, I have named the activity related to each observation, and I hve also named all variables in a readable manner. Now, I want to add the person's ID (*Subject_ID*) to each observation:
+Let's recap for a while: I have a table colleting all measurements, I have named the activity related to each observation, and I have also named all variables in a readable manner. Now, I want to add the person's ID (*Subject_ID*) to each observation:
 ``` 
 subject.test <- read.table("UCI HAR Dataset/test/subject_test.txt", col.names = c("Subject_ID"))
 subject.train <- read.table("UCI HAR Dataset/train/subject_train.txt", col.names = c("Subject_ID"))
