@@ -22,5 +22,15 @@ $RECYCLE.BIN/
 
 *.Rhistory
 *.RProj
+*.RData
 *.pper
 .Rproj.user/*
+
+#############
+## Documents
+#############
+
+*.html
+*.txt
+
+
